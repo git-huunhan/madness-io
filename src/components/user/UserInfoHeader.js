@@ -18,10 +18,7 @@ const UserInfoHeader = ({ icon }) => {
         <div className="role">administator</div>
       </div>
 
-      <FontAwesomeIcon
-        className="clickable icon-notification-btn"
-        icon={icon}
-      />
+      <FontAwesomeIcon className="clickable" icon={icon} />
     </div>
   );
 };

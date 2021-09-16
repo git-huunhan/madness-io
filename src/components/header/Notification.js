@@ -1,16 +1,15 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button } from "react-bootstrap";
 
 const Notification = ({ icon, badge }) => {
   return (
-    <div className="notification">
-      <div className="notification-item">
-        <FontAwesomeIcon
-          className="clickable icon-notification-btn"
-          icon={icon}
-        />
-        <span class="badge">{badge}</span>
-      </div>
-    </div>
+    <Button className="notification-item">
+      <FontAwesomeIcon
+        className="clickable icon-notification-btn"
+        icon={icon}
+      />
+      <span className="badge">{badge}</span>
+    </Button>
   );
 };
 

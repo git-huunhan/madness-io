@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getStudents, deleteStudent } from "../../functions/student";
+import { queryAll, deleteStudent } from "../../functions/student";
 
 import moment from "moment";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,11 +8,15 @@ import {
   faTrash,
   faSyncAlt,
   faPlus,
-  faHome,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import DataTable from "react-data-table-component";
+
+import { toast } from "react-toastify";
+import AddStudent from "../../components/toast/AddStudent";
+
+import { OverlayTrigger, Popover } from "react-bootstrap";
 
 const TableStudent = () => {
   const [students, setStudents] = useState([]);
@@ -22,13 +26,21 @@ const TableStudent = () => {
   }, []);
 
   const loadStudents = () =>
-    getStudents().then((student) => setStudents(student.data));
+    queryAll().then((student) => setStudents(student.data));
 
   const handleDelete = (studentId) => {
     deleteStudent(studentId)
       .then((res) => {
         loadStudents();
-        alert("Student has been deleted!");
+        toast.success(
+          <AddStudent
+            title="Deleted successfully!"
+            studentCode={res.data.studentCode}
+            firstName={res.data.firstName}
+            lastName={res.data.lastName}
+          />
+        );
+        document.body.click();
       })
       .catch((err) => console.log(err));
   };
@@ -41,17 +53,17 @@ const TableStudent = () => {
     {
       name: "Student Code",
       sortable: true,
-      selector: (row) => row.studentcode,
+      selector: (row) => row.studentCode,
     },
     {
       name: "First Name",
       sortable: true,
-      selector: (row) => row.firstname,
+      selector: (row) => row.firstName,
     },
     {
       name: "Last Name",
       sortable: true,
-      selector: (row) => row.lastname,
+      selector: (row) => row.lastName,
     },
     {
       name: "Email",
@@ -66,7 +78,7 @@ const TableStudent = () => {
     {
       name: "Date Of Birth",
       sortable: true,
-      selector: (row) => moment(row.dateofbirth).format("DD-MM-YYYY"),
+      selector: (row) => moment(row.dateOfBirth).format("DD-MM-YYYY"),
     },
     {
       name: "Address",
@@ -81,18 +93,38 @@ const TableStudent = () => {
       name: "Actions",
       selector: (row) => (
         <div>
-          <Link to={`/student-update/${row.slug}`}>
+          <Link to={`/update-student/${row.slug}`}>
             <FontAwesomeIcon className="mr-2 clickable" icon={faPen} />
           </Link>
-          <FontAwesomeIcon
-            className="clickable"
-            icon={faTrash}
-            onClick={() => handleDelete(row._id)}
-          />
+
+          <OverlayTrigger
+            trigger="click"
+            key={"bottom"}
+            placement={"bottom"}
+            rootClose={true}
+            overlay={
+              <Popover id={"popover-positioned-bottom"}>
+                <Popover.Title as="h3">
+                  <div>Do you agree to delete student?</div>
+                </Popover.Title>
+                <Popover.Content className="d-flex justify-content-around">
+                  <Button size="sm" onClick={() => document.body.click()}>
+                    Cancel
+                  </Button>
+                  <Button size="sm" onClick={() => handleDelete(row._id)}>
+                    Agree
+                  </Button>
+                </Popover.Content>
+              </Popover>
+            }
+          >
+            <FontAwesomeIcon className="clickable" icon={faTrash} />
+          </OverlayTrigger>
         </div>
       ),
     },
   ];
+
   return (
     <DataTable
       title={
@@ -107,7 +139,7 @@ const TableStudent = () => {
             />
           </div>
 
-          <Link to="/student-create">
+          <Link to="/create-student">
             <Button className="table-btn-add" size="sm">
               <span className="mr-2">Add</span>
               <FontAwesomeIcon className="clickable" icon={faPlus} />
@@ -119,6 +151,9 @@ const TableStudent = () => {
       data={students}
       highlightOnHover
       pagination
+      paginationComponentOptions={{
+        noRowsPerPage: true,
+      }}
     />
   );
 };

@@ -2,7 +2,7 @@ import { Breadcrumb } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 
-const HeaderCrumb = ({icon, title}) => {
+const HeaderCrumb = ({ icon, mainTitle, secondaryTitle }) => {
   return (
     <Breadcrumb>
       <Breadcrumb.Item active>
@@ -13,7 +13,8 @@ const HeaderCrumb = ({icon, title}) => {
           />
         </Link>
       </Breadcrumb.Item>
-      <Breadcrumb.Item active>{title}</Breadcrumb.Item>
+      <Breadcrumb.Item active>{mainTitle}</Breadcrumb.Item>
+      <Breadcrumb.Item active>{secondaryTitle}</Breadcrumb.Item>
     </Breadcrumb>
   );
 };

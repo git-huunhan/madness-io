@@ -16,7 +16,6 @@ const UserBox = () => {
     <div className="header-user">
       <NavDropdown
         title={<UserInfoHeader icon={faAngleDown} />}
-        menuAlign={{ lg: "left" }}
         id="dropdown-menu-align-responsive-2"
       >
         <Dropdown.Item eventKey="1">

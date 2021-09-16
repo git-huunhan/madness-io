@@ -7,10 +7,12 @@ import {
   faBell,
   faSearch,
 } from "@fortawesome/free-solid-svg-icons";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Search from "./Search";
-import Notification from "./Notification";
 import UserBox from "./UserBox";
+import DropdownNotification from "../dropdown/DropdownNotification";
+
+import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 
 const Header = () => {
   return (
@@ -29,9 +31,39 @@ const Header = () => {
 
             <span className="separator" />
 
-            <Notification icon={faTasks} badge={0} />
-            <Notification icon={faEnvelope} badge={0} />
-            <Notification icon={faBell} badge={12} />
+            <div className="notification">
+              <DropdownNotification icon={faTasks} badge={0} />
+              <DropdownNotification icon={faEnvelope} badge={0} />
+              <DropdownNotification icon={faBell} badge={2}>
+                <div className="content-popover-header mb-3">
+                  <div className="icon-content-popover">
+                    <FontAwesomeIcon
+                      className="clickable icon"
+                      icon={faCheckCircle}
+                    />
+                  </div>
+
+                  <div>
+                    <div className="title-content-popover">Added new student</div>
+                    <div className="time-content-popover">Just now</div>
+                  </div>
+                </div>
+
+                <div className="content-popover-header">
+                  <div className="icon-content-popover">
+                    <FontAwesomeIcon
+                      className="clickable icon"
+                      icon={faCheckCircle}
+                    />
+                  </div>
+
+                  <div>
+                    <div className="title-content-popover">Added student</div>
+                    <div className="time-content-popover">Just now</div>
+                  </div>
+                </div>
+              </DropdownNotification>
+            </div>
 
             <span className="separator" />
 
