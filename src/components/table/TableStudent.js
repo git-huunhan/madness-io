@@ -103,15 +103,26 @@ const TableStudent = () => {
             placement={"bottom"}
             rootClose={true}
             overlay={
-              <Popover id={"popover-positioned-bottom"}>
+              <Popover
+                id={"popover-positioned-bottom"}
+                className="popover-notification"
+              >
                 <Popover.Title as="h3">
                   <div>Do you agree to delete student?</div>
                 </Popover.Title>
                 <Popover.Content className="d-flex justify-content-around">
-                  <Button size="sm" onClick={() => document.body.click()}>
+                  <Button
+                    size="sm"
+                    className="secondary-btn"
+                    onClick={() => document.body.click()}
+                  >
                     Cancel
                   </Button>
-                  <Button size="sm" onClick={() => handleDelete(row._id)}>
+                  <Button
+                    size="sm"
+                    className="primary-btn"
+                    onClick={() => handleDelete(row._id)}
+                  >
                     Agree
                   </Button>
                 </Popover.Content>

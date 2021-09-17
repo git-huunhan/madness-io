@@ -629,3 +629,9 @@ body {
 .actions-btn {
   color: #666;
 }
+
+.secondary-btn {
+  background-color: $grey-color;
+  border: $grey-color;
+  color: $dark-color;
+}

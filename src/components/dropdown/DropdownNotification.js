@@ -19,7 +19,10 @@ const DropdownNotification = ({ icon, badge, children }) => {
           </Popover.Title>
           <Popover.Content>{children}</Popover.Content>
           <hr />
-          <div className="d-flex justify-content-end">View all</div>
+
+          <div className="d-flex m-2 justify-content-end">
+            View all
+          </div>
         </Popover>
       }
     >
