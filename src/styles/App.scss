@@ -234,6 +234,9 @@ body {
 
   .popover-body {
     padding: 12px;
+
+    max-height: 250px;
+    overflow-y: auto;
   }
 
   .badge-popover-header {
@@ -279,7 +282,7 @@ body {
   }
 
   hr {
-    margin: 12px 0;
+    margin: 0 0 12px 0;
   }
 }
 
@@ -586,4 +589,43 @@ body {
   .content {
     width: 100%;
   }
+}
+
+.form-header {
+  background-color: $background-secondary-color;
+  border-radius: 4px 4px 0 0;
+  padding: 0 16px;
+  color: #33353f;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 20px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #dadada;
+}
+
+.form-content {
+  font-size: 13px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  padding: 15px;
+  border-radius: 0 0 4px 4px;
+  .form-control {
+    font-size: 14px;
+  }
+}
+
+.custom-control-label {
+  display: flex;
+  align-items: center;
+}
+
+.primary-btn {
+  background-color: $primary-color;
+}
+
+.actions-btn {
+  color: #666;
 }

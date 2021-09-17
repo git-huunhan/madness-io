@@ -3,11 +3,12 @@ import { Form, Row, Col } from "react-bootstrap";
 const FormInput = ({ title, type, name, placeholder, value, handle }) => {
   return (
     <Form.Group as={Row}>
-      <Form.Label column sm="2">
+      <Form.Label column sm="2" className="d-flex justify-content-end">
         {title}
       </Form.Label>
       <Col sm="10">
         <Form.Control
+          required
           type={type}
           name={name}
           placeholder={placeholder}

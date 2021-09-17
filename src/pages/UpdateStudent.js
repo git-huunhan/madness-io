@@ -5,51 +5,76 @@ import { updateStudent, queryStudentById } from "../functions/student";
 import moment from "moment";
 import { faHome } from "@fortawesome/free-solid-svg-icons";
 import HeaderCrumb from "../components/breadcrumb/HeaderCrumb";
+import FormInput from "../components/form/FormInput";
+
+import { toast } from "react-toastify";
+import AddStudent from "../components/toast/AddStudent";
+
+const initialState = {
+  studentCode: "",
+  firstName: "",
+  lastName: "",
+  email: "",
+  gender: ["Male", "Female"],
+  dateOfBirth: "",
+  address: "",
+  phone: "",
+};
 
 const UpdateStudent = ({ history, match }) => {
-  const [studentCode, setStudentCode] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [gender, setGender] = useState("");
+  const [values, setValues] = useState(initialState);
   const [dateOfBirth, setDateOfBirth] = useState("");
-  const [address, setAddress] = useState("");
-  const [phone, setPhone] = useState("");
+
+  const { studentCode, firstName, lastName, email, gender, address, phone } =
+    values;
+
+  const { slug } = match.params;
 
   useEffect(() => {
     loadStudents();
   }, []);
 
-  const loadStudents = () =>
-    queryStudentById(match.params.slug).then((c) => {
-      setStudentCode(c.data.student.studentCode);
-      setFirstName(c.data.student.firstName);
-      setLastName(c.data.student.lastName);
-      setEmail(c.data.student.email);
-      setGender(c.data.student.gender);
-      setDateOfBirth(moment(c.data.student.dateOfBirth).format("YYYY-MM-DD"));
-      setAddress(c.data.student.address);
-      setPhone(c.data.student.phone);
+  const loadStudents = () => {
+    queryStudentById(slug).then((item) => {
+      setValues({
+        ...values,
+        ...item.data.student,
+      });
+
+      setDateOfBirth(
+        moment(item.data.student.dateOfBirth).format("YYYY-MM-DD")
+      );
     });
+  };
 
   const handleSubmit = (e) => {
-    updateStudent(match.params.slug, {
-      studentCode,
-      firstName,
-      lastName,
-      email,
-      gender,
-      dateOfBirth,
-      address,
-      phone,
-    })
+    updateStudent(slug, values, dateOfBirth)
       .then((res) => {
-        alert("Update student successfully!");
+        toast.success(
+          <AddStudent
+            title="Updated successfully!"
+            studentCode={res.data.studentCode}
+            firstName={res.data.firstName}
+            lastName={res.data.lastName}
+          />
+        );
         history.push("/");
       })
       .catch((err) => {
-        if (err.response.status === 400) alert("Error, try again!");
+        if (err.response.data.err.includes("required")) {
+          toast.error("Please fill out form completely!");
+        } else if (err.response.data.err.includes("E11000")) {
+          toast.error("Student Code already exits!");
+        }
       });
+  };
+
+  const handleChange = (e) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
+  };
+
+  const handleGenderChange = (e) => {
+    setValues({ ...values, gender: e.target.value });
   };
 
   return (
@@ -68,139 +93,127 @@ const UpdateStudent = ({ history, match }) => {
         </div>
 
         <div className="page-content">
-          <Col md="12">
-            <Form>
-              <Form.Group as={Row}>
-                <Form.Label column sm="2">
-                  Student Code
-                </Form.Label>
-                <Col sm="10">
-                  <Form.Control
+          <div className="form-container">
+            <div className="form-header">Update Student Form</div>
+
+            <div className="form-content">
+              <Col md="8">
+                <Form>
+                  <FormInput
+                    title="Student Code"
                     type="text"
-                    placeholder="1234563"
+                    name="studentCode"
+                    placeholder="Enter Student Code"
                     value={studentCode}
-                    onChange={(e) => setStudentCode(e.target.value)}
+                    handle={handleChange}
                   />
-                </Col>
-              </Form.Group>
-
-              <Form.Group as={Row}>
-                <Form.Label column sm="2">
-                  First Name
-                </Form.Label>
-                <Col sm="10">
-                  <Form.Control
+                  <FormInput
+                    title="First Name"
                     type="text"
-                    placeholder="Stephen"
+                    name="firstName"
+                    placeholder="Enter First Name"
                     value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
+                    handle={handleChange}
                   />
-                </Col>
-              </Form.Group>
 
-              <Form.Group as={Row} controlId="formPlaintextEmail">
-                <Form.Label column sm="2">
-                  Last Name
-                </Form.Label>
-                <Col sm="10">
-                  <Form.Control
+                  <FormInput
+                    title="Last Name"
                     type="text"
-                    placeholder="Dang"
+                    name="lastName"
+                    placeholder="Enter Last Name"
                     value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
+                    handle={handleChange}
                   />
-                </Col>
-              </Form.Group>
 
-              <Form.Group as={Row} controlId="formPlaintextEmail">
-                <Form.Label column sm="2">
-                  Email
-                </Form.Label>
-                <Col sm="10">
-                  <Form.Control
+                  <FormInput
+                    title="Email"
                     type="email"
-                    placeholder="Email"
+                    name="email"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Enter Email"
+                    handle={handleChange}
                   />
-                </Col>
-              </Form.Group>
 
-              <Form.Group as={Row} controlId="formPlaintextPassword">
-                <Form.Label column sm="2">
-                  Gender
-                </Form.Label>
-                <Col sm="10">
-                  <Form.Check
-                    custom
-                    inline
-                    label="Male"
-                    type={"radio"}
-                    id={`custom-inline-${"radio"}-1`}
-                    name="any"
-                    checked={gender === "Male"}
-                    value="Male"
-                    onChange={(e) => setGender(e.target.value)}
-                  />
-                  <Form.Check
-                    custom
-                    inline
-                    label="Female"
-                    type={"radio"}
-                    id={`custom-inline-${"radio"}-2`}
-                    name="any"
-                    checked={gender === "Female"}
-                    value="Female"
-                    onChange={(e) => setGender(e.target.value)}
-                  />
-                </Col>
-              </Form.Group>
+                  <Form.Group as={Row}>
+                    <Form.Label
+                      column
+                      sm="2"
+                      className="d-flex justify-content-end"
+                    >
+                      Gender
+                    </Form.Label>
+                    <Col sm="10" className="d-flex align-items-center">
+                      <Form.Check
+                        custom
+                        inline
+                        label="Male"
+                        type="radio"
+                        id={`custom-inline-${"radio"}-1`}
+                        name="any"
+                        value="Male"
+                        checked={gender === "Male"}
+                        onChange={handleGenderChange}
+                      />
+                      <Form.Check
+                        custom
+                        inline
+                        label="Female"
+                        type="radio"
+                        id={`custom-inline-${"radio"}-2`}
+                        name="any"
+                        value="Female"
+                        checked={gender === "Female"}
+                        onChange={handleGenderChange}
+                      />
+                    </Col>
+                  </Form.Group>
 
-              <Form.Group as={Row} controlId="formPlaintextPassword">
-                <Form.Label column sm="2">
-                  Date of Birth
-                </Form.Label>
-                <Col sm="10">
-                  <Form.Control
+                  <FormInput
+                    title="Date Of Birth"
                     type="date"
+                    name="dateOfBirth"
                     value={dateOfBirth}
-                    onChange={(e) => setDateOfBirth(e.target.value)}
+                    handle={handleChange}
                   />
-                </Col>
-              </Form.Group>
 
-              <Form.Group as={Row} controlId="formPlaintextPassword">
-                <Form.Label column sm="2">
-                  Address
-                </Form.Label>
-                <Col sm="10">
-                  <Form.Control
+                  <FormInput
+                    title="Address"
                     type="text"
-                    placeholder="Address"
+                    name="address"
+                    placeholder="Enter Address"
                     value={address}
-                    onChange={(e) => setAddress(e.target.value)}
+                    handle={handleChange}
                   />
-                </Col>
-              </Form.Group>
 
-              <Form.Group as={Row} controlId="formPlaintextPassword">
-                <Form.Label column sm="2">
-                  Phone
-                </Form.Label>
-                <Col sm="10">
-                  <Form.Control
+                  <FormInput
+                    title="Phone"
                     type="text"
-                    placeholder="Phone"
+                    name="phone"
+                    placeholder="Enter Phone"
                     value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
+                    handle={handleChange}
                   />
-                </Col>
-              </Form.Group>
-            </Form>
-            <Button type="submit" onClick={handleSubmit}>
-              Update
-            </Button>
-          </Col>
+
+                  <Form.Group as={Row}>
+                    <Form.Label
+                      column
+                      sm="2"
+                      className="d-flex justify-content-end"
+                    ></Form.Label>
+                    <Col sm="10">
+                      <Button
+                        size="sm"
+                        className="primary-btn"
+                        onClick={handleSubmit}
+                      >
+                        Update
+                      </Button>
+                    </Col>
+                  </Form.Group>
+                </Form>
+              </Col>
+            </div>
+          </div>
         </div>
       </div>
     </div>

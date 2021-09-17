@@ -93,8 +93,8 @@ const TableStudent = () => {
       name: "Actions",
       selector: (row) => (
         <div>
-          <Link to={`/update-student/${row.slug}`}>
-            <FontAwesomeIcon className="mr-2 clickable" icon={faPen} />
+          <Link to={`/update-student/${row.slug}`} className="actions-btn">
+            <FontAwesomeIcon className="mr-3 clickable" icon={faPen} />
           </Link>
 
           <OverlayTrigger
@@ -118,7 +118,7 @@ const TableStudent = () => {
               </Popover>
             }
           >
-            <FontAwesomeIcon className="clickable" icon={faTrash} />
+            <FontAwesomeIcon className="clickable actions-btn" icon={faTrash} />
           </OverlayTrigger>
         </div>
       ),
@@ -140,7 +140,7 @@ const TableStudent = () => {
           </div>
 
           <Link to="/create-student">
-            <Button className="table-btn-add" size="sm">
+            <Button className="primary-btn" size="sm">
               <span className="mr-2">Add</span>
               <FontAwesomeIcon className="clickable" icon={faPlus} />
             </Button>
