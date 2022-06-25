@@ -1,28 +1,57 @@
-import { faHome } from "@fortawesome/free-solid-svg-icons";
-import TableStudent from "../components/table/TableStudent";
+// @mui
+import { styled } from '@mui/material/styles';
+// components
+import Page from '../components/Page';
+// sections
+import {
+  HomeHero,
+  HomeMinimal,
+  HomeDarkMode,
+  HomeLookingFor,
+  HomeColorPresets,
+  HomePricingPlans,
+  HomeAdvertisement,
+  HomeCleanInterfaces,
+  HomeHugePackElements,
+} from '../sections/home';
 
-import HeaderCrumb from "../components/breadcrumb/HeaderCrumb";
+// ----------------------------------------------------------------------
 
-const Home = () => {
+const RootStyle = styled('div')(() => ({
+  height: '100%',
+}));
+
+const ContentStyle = styled('div')(({ theme }) => ({
+  overflow: 'hidden',
+  position: 'relative',
+  backgroundColor: theme.palette.background.default,
+}));
+
+// ----------------------------------------------------------------------
+
+export default function HomePage() {
   return (
-    <div className="page-wrapper">
-      <div className="page-header">
-        <div className="page-header-title">
-          <span>Student Data Table</span>
-        </div>
+    <Page title="The starting point for your next project">
+      <RootStyle>
+        <HomeHero />
+        <ContentStyle>
+          <HomeMinimal />
 
-        <HeaderCrumb
-          icon={faHome}
-          mainTitle="Table"
-          secondaryTitle="Student Data Table"
-        />
-      </div>
+          <HomeHugePackElements />
 
-      <div className="page-content">
-        <TableStudent />
-      </div>
-    </div>
+          <HomeDarkMode />
+
+          <HomeColorPresets />
+
+          <HomeCleanInterfaces />
+
+          <HomePricingPlans />
+
+          <HomeLookingFor />
+
+          <HomeAdvertisement />
+        </ContentStyle>
+      </RootStyle>
+    </Page>
   );
-};
-
-export default Home;
+}

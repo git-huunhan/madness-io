@@ -1,4 +1,3 @@
-import Logo from "../../images/logo.png";
 import { Navbar, Nav, Image } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import moment from "moment";
@@ -22,9 +21,7 @@ const Header = () => {
   return (
     <Navbar className="navbar" expand="lg">
       <div className="logo-container">
-        <Navbar.Brand href="/">
-          <Image className="navbar-logo" src={Logo} />
-        </Navbar.Brand>
+        <Navbar.Brand href="/">hihi</Navbar.Brand>
       </div>
 
       <div className="header-right">

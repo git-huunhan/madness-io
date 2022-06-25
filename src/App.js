@@ -1,46 +1,39 @@
-import { Switch, Route } from "react-router-dom";
-import "./styles/App.scss";
-import "react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css";
-import "react-toastify/dist/ReactToastify.css";
+// routes
+import Router from './routes';
+// theme
+import ThemeProvider from './theme';
+// components
+import Settings from './components/settings';
+import RtlLayout from './components/RtlLayout';
+import { ChartStyle } from './components/chart';
+import ScrollToTop from './components/ScrollToTop';
+import { ProgressBarStyle } from './components/ProgressBar';
+import NotistackProvider from './components/NotistackProvider';
+import ThemeColorPresets from './components/ThemeColorPresets';
+import ThemeLocalization from './components/ThemeLocalization';
+import MotionLazyContainer from './components/animate/MotionLazyContainer';
 
-import { ToastContainer } from "react-toastify";
+// ----------------------------------------------------------------------
 
-import Header from "./components/header/Header";
-import Home from "./pages/Home";
-import CreateStudent from "./pages/CreateStudent";
-import UpdateStudent from "./pages/UpdateStudent";
-import SideBar from "./components/sidebar/Sidebar";
-
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <ToastContainer
-        position="bottom-left"
-        autoClose={4000}
-        hideProgressBar={false}
-        closeOnClick
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
-      <Header />
-      <div className="page-content-layout">
-        <SideBar />
-
-        <div className="content">
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/create-student" component={CreateStudent} />
-            <Route
-              exact
-              path="/update-student/:slug"
-              component={UpdateStudent}
-            />
-          </Switch>
-        </div>
-      </div>
-    </div>
+    <ThemeProvider>
+      <ThemeColorPresets>
+        <ThemeLocalization>
+          <RtlLayout>
+            <NotistackProvider>
+              <MotionLazyContainer>
+                <ProgressBarStyle />
+                <ChartStyle />
+                <Settings />
+                <ScrollToTop />
+                <Router />
+              </MotionLazyContainer>
+            </NotistackProvider>
+          </RtlLayout>
+        </ThemeLocalization>
+      </ThemeColorPresets>
+    </ThemeProvider>
   );
 }
 
-export default App;
