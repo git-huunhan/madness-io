@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 // utils
 import axios from "../utils/axios";
 import { isValidToken, setSession } from "../utils/jwt";
+import { getAdminLogin, getAdminData } from "../functions/auth";
 
 // ----------------------------------------------------------------------
 
@@ -75,12 +76,9 @@ function AuthProvider({ children }) {
         if (accessToken && isValidToken(accessToken)) {
           setSession(accessToken);
 
-          const response = await axios.get("/api/account/my-account");
-          const { user } = response.data;
+          const response = await getAdminData();
 
-          user.displayName = "Raiden Ei";
-          user.photoURL =
-            "https://pic-bstarstatic.akamaized.net/ugc/1c5949f2033cc5941aaa4729fb4c5e052b2997bc.jpg@720w_406h_1e_1c_1f.webp";
+          const user = response.data[0];
 
           dispatch({
             type: "INITIALIZE",
@@ -114,11 +112,9 @@ function AuthProvider({ children }) {
   }, []);
 
   const login = async (email, password) => {
-    const response = await axios.post("/api/account/login", {
-      email,
-      password,
-    });
-    const { accessToken, user } = response.data;
+    const response = await getAdminLogin(email, password);
+
+    const { accessToken, user } = response.data[0];
 
     setSession(accessToken);
     dispatch({

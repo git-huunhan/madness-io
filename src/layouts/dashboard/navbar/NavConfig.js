@@ -30,6 +30,7 @@ const navConfig = [
     subheader: 'general',
     items: [
       { title: 'app', path: PATH_DASHBOARD.general.app, icon: ICONS.dashboard },
+      { title: 'users', path: PATH_DASHBOARD.general.users, icon: ICONS.user },
       { title: 'e-commerce', path: PATH_DASHBOARD.general.ecommerce, icon: ICONS.ecommerce },
       { title: 'analytics', path: PATH_DASHBOARD.general.analytics, icon: ICONS.analytics },
       { title: 'banking', path: PATH_DASHBOARD.general.banking, icon: ICONS.banking },

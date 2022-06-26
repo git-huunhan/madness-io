@@ -82,7 +82,7 @@ export default function Login() {
       <RootStyle>
         <HeaderStyle>
           <Logo />
-          {smUp && (
+          {/* {smUp && (
             <Typography variant="body2" sx={{ mt: { md: -2 } }}>
               Don’t have an account? {""}
               <Link
@@ -93,7 +93,7 @@ export default function Login() {
                 Get started
               </Link>
             </Typography>
-          )}
+          )} */}
         </HeaderStyle>
 
         {mdUp && (
@@ -110,7 +110,7 @@ export default function Login() {
             <Stack direction="row" alignItems="center" sx={{ mb: 5 }}>
               <Box sx={{ flexGrow: 1 }}>
                 <Typography variant="h4" gutterBottom>
-                  Sign in to Minimal
+                  Sign in to Madness
                 </Typography>
                 <Typography sx={{ color: "text.secondary" }}>
                   Enter your details below.
@@ -128,10 +128,10 @@ export default function Login() {
               </Tooltip>
             </Stack>
 
-            <Alert severity="info" sx={{ mb: 3 }}>
+            {/* <Alert severity="info" sx={{ mb: 3 }}>
               Use email : <strong>demo@minimals.cc</strong> / password :
               <strong> demo1234</strong>
-            </Alert>
+            </Alert> */}
 
             <LoginForm />
 
