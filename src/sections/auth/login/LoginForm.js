@@ -31,8 +31,8 @@ export default function LoginForm() {
   });
 
   const defaultValues = {
-    email: 'sdang@gmail.com',
-    password: '260599',
+    email: '',
+    password: '',
     remember: true,
   };
 
