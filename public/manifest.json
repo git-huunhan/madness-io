@@ -1,20 +1,20 @@
 {
   "name": "Madness",
-  "short_name": "MSA",
+  "short_name": "Madness",
   "display": "standalone",
-  "start_url": "/dashboard/app",
-  "scope": "/dashboard/app",
+  "start_url": "/",
+  "scope": "/",
   "theme_color": "#000000",
   "background_color": "#ffffff",
   "icons": [
     {
-      "src": "favicon/android-chrome-192x192.png",
+      "src": "favicon/android-chrome-512x512.png",
       "sizes": "144x144",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "favicon/android-chrome-192x192.png",
+      "src": "favicon/android-chrome-512x512.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
