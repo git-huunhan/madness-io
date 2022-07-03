@@ -119,7 +119,7 @@ function CardItem({ card }) {
         </Box>
 
         <div>
-          <Typography sx={{ mb: 2, typography: 'subtitle2', opacity: 0.72 }}>Current Balance</Typography>
+          <Typography sx={{ mb: 2, typography: 'subtitle2', opacity: 0.72 }}>Số Dư Hiện Tại</Typography>
           <Stack direction="row" alignItems="center" spacing={1}>
             <Typography sx={{ typography: 'h3' }}>{showCurrency ? '********' : fCurrency(balance)}</Typography>
             <IconButton color="inherit" onClick={onToggleShowCurrency} sx={{ opacity: 0.48 }}>

@@ -1,9 +1,10 @@
 // @mui
-import { Grid, Container, Stack } from '@mui/material';
+import { Grid, Container, Stack } from "@mui/material";
 // hooks
-import useSettings from '../../hooks/useSettings';
+import useSettings from "../../../hooks/useSettings";
+import { useTranslation } from "react-i18next";
 // components
-import Page from '../../components/Page';
+import Page from "../../../components/Page";
 // sections
 import {
   BankingWidgetSummary,
@@ -11,30 +12,31 @@ import {
   BankingBalanceStatistics,
   BankingRecentTransitions,
   BankingExpensesCategories,
-} from '../../sections/@dashboard/general/banking';
+} from "../../../sections/@dashboard/general/banking";
 
 // ----------------------------------------------------------------------
 
-export default function GeneralBanking() {
+export default function Wallet() {
   const { themeStretch } = useSettings();
+  const { t } = useTranslation();
 
   return (
     <Page title="General: Banking">
-      <Container maxWidth={themeStretch ? false : 'xl'}>
+      <Container maxWidth={themeStretch ? false : "xl"}>
         <Grid container spacing={3}>
-          <Grid item xs={12} md={7}>
-            <Stack direction={{ xs: 'column', sm: 'row' }} spacing={3}>
+          <Grid item xs={12} md={8}>
+            <Stack direction={{ xs: "column", sm: "row" }} spacing={3}>
               <BankingWidgetSummary
-                title="Income"
-                icon={'eva:diagonal-arrow-left-down-fill'}
+                title={t("trans.income")}
+                icon={"eva:diagonal-arrow-left-down-fill"}
                 percent={2.6}
-                total={18765}
+                total={90000}
                 chartData={[111, 136, 76, 108, 74, 54, 57, 84]}
               />
               <BankingWidgetSummary
-                title="Expenses"
+                title={t("trans.expenses")}
                 color="warning"
-                icon={'eva:diagonal-arrow-right-up-fill'}
+                icon={"eva:diagonal-arrow-right-up-fill"}
                 percent={-0.5}
                 total={8938}
                 chartData={[111, 136, 76, 108, 74, 54, 57, 84]}
@@ -42,7 +44,7 @@ export default function GeneralBanking() {
             </Stack>
           </Grid>
 
-          <Grid item xs={12} md={5}>
+          <Grid item xs={12} md={4}>
             <BankingCurrentBalance />
           </Grid>
 

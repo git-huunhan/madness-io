@@ -41,7 +41,7 @@ export default function BankingRecentTransitions() {
   return (
     <>
       <Card>
-        <CardHeader title="Recent Transitions" sx={{ mb: 3 }} />
+        <CardHeader title="Giao Dịch Gần Đây" sx={{ mb: 3 }} />
         <Scrollbar>
           <TableContainer sx={{ minWidth: 720 }}>
             <Table>

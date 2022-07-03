@@ -1,39 +1,57 @@
-import merge from 'lodash/merge';
-import { useState } from 'react';
-import ReactApexChart from 'react-apexcharts';
+import merge from "lodash/merge";
+import { useState } from "react";
+import ReactApexChart from "react-apexcharts";
 // @mui
-import { Card, CardHeader, Box, TextField } from '@mui/material';
+import { Card, CardHeader, Box, TextField } from "@mui/material";
 // components
-import { BaseOptionChart } from '../../../../components/chart';
+import { BaseOptionChart } from "../../../../components/chart";
 
 // ----------------------------------------------------------------------
 
 const CHART_DATA = [
   {
-    year: 'Week',
+    year: "Tuần",
     data: [
-      { name: 'Income', data: [10, 41, 35, 151, 49, 62, 69, 91, 48] },
-      { name: 'Expenses', data: [10, 34, 13, 56, 77, 88, 99, 77, 45] },
+      {
+        name: "Khoản Thu",
+        data: [10, 41, 35, 151, 49, 62, 69],
+      },
+      {
+        name: "Khoản Chi",
+        data: [10, 34, 13, 56, 77, 88, 99],
+      },
     ],
   },
   {
-    year: 'Month',
+    year: "Tháng",
     data: [
-      { name: 'Income', data: [148, 91, 69, 62, 49, 51, 35, 41, 10] },
-      { name: 'Expenses', data: [45, 77, 99, 88, 77, 56, 13, 34, 10] },
+      {
+        name: "Khoản Thu",
+        data: [148, 91, 69, 62],
+      },
+      {
+        name: "Khoản Chi",
+        data: [45, 77, 99, 88],
+      },
     ],
   },
   {
-    year: 'Year',
+    year: "Năm",
     data: [
-      { name: 'Income', data: [76, 42, 29, 41, 27, 138, 117, 86, 63] },
-      { name: 'Expenses', data: [80, 55, 34, 114, 80, 130, 15, 28, 55] },
+      {
+        name: "Khoản Thu",
+        data: [76, 42, 29, 41, 27, 138, 117, 86, 63, 69, 91, 48],
+      },
+      {
+        name: "Khoản Chi",
+        data: [80, 55, 34, 114, 80, 130, 15, 28, 55, 69, 91, 48],
+      },
     ],
   },
 ];
 
 export default function BankingBalanceStatistics() {
-  const [seriesData, setSeriesData] = useState('Year');
+  const [seriesData, setSeriesData] = useState("Năm");
 
   const handleChangeSeriesData = (event) => {
     setSeriesData(event.target.value);
@@ -43,14 +61,27 @@ export default function BankingBalanceStatistics() {
     stroke: {
       show: true,
       width: 2,
-      colors: ['transparent'],
+      colors: ["transparent"],
     },
     xaxis: {
-      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+      categories: [
+        "01",
+        "02",
+        "03",
+        "04",
+        "05",
+        "06",
+        "07",
+        "08",
+        "09",
+        "10",
+        "11",
+        "12",
+      ],
     },
     tooltip: {
       y: {
-        formatter: (val) => `$${val}`,
+        formatter: (val) => `${val} VND`,
       },
     },
   });
@@ -58,8 +89,8 @@ export default function BankingBalanceStatistics() {
   return (
     <Card>
       <CardHeader
-        title="Balance Statistics"
-        subheader="(+43% Income | +12% Expense) than last year"
+        title="Thống Kê Số Dư"
+        subheader="(+43% Khoản Thu | +12% Khoản Chi) so với năm trước"
         action={
           <TextField
             select
@@ -68,10 +99,23 @@ export default function BankingBalanceStatistics() {
             SelectProps={{ native: true }}
             onChange={handleChangeSeriesData}
             sx={{
-              '& fieldset': { border: '0 !important' },
-              '& select': { pl: 1, py: 0.5, pr: '24px !important', typography: 'subtitle2' },
-              '& .MuiOutlinedInput-root': { borderRadius: 0.75, bgcolor: 'background.neutral' },
-              '& .MuiNativeSelect-icon': { top: 4, right: 0, width: 20, height: 20 },
+              "& fieldset": { border: "0 !important" },
+              "& select": {
+                pl: 1,
+                py: 0.5,
+                pr: "24px !important",
+                typography: "subtitle2",
+              },
+              "& .MuiOutlinedInput-root": {
+                borderRadius: 0.75,
+                bgcolor: "background.neutral",
+              },
+              "& .MuiNativeSelect-icon": {
+                top: 4,
+                right: 0,
+                width: 20,
+                height: 20,
+              },
             }}
           >
             {CHART_DATA.map((option) => (
@@ -86,7 +130,12 @@ export default function BankingBalanceStatistics() {
       {CHART_DATA.map((item) => (
         <Box key={item.year} sx={{ mt: 3, mx: 3 }} dir="ltr">
           {item.year === seriesData && (
-            <ReactApexChart type="bar" series={item.data} options={chartOptions} height={364} />
+            <ReactApexChart
+              type="bar"
+              series={item.data}
+              options={chartOptions}
+              height={364}
+            />
           )}
         </Box>
       ))}

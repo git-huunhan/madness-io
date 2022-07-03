@@ -1,47 +1,61 @@
-import PropTypes from 'prop-types';
-import merge from 'lodash/merge';
-import ReactApexChart from 'react-apexcharts';
+import PropTypes from "prop-types";
+import merge from "lodash/merge";
+import ReactApexChart from "react-apexcharts";
 // @mui
-import { styled, useTheme } from '@mui/material/styles';
-import { Card, Typography, Stack } from '@mui/material';
+import { styled, useTheme } from "@mui/material/styles";
+import { Card, Typography, Stack } from "@mui/material";
 // utils
-import { fCurrency, fPercent } from '../../../../utils/formatNumber';
+import { fCurrency, fPercent } from "../../../../utils/formatNumber";
 // components
-import Iconify from '../../../../components/Iconify';
-import BaseOptionChart from '../../../../components/chart/BaseOptionChart';
+import Iconify from "../../../../components/Iconify";
+import BaseOptionChart from "../../../../components/chart/BaseOptionChart";
 
 // ----------------------------------------------------------------------
 
 const RootStyle = styled(Card)(() => ({
-  width: '100%',
-  boxShadow: 'none',
-  position: 'relative',
+  width: "100%",
+  boxShadow: "none",
+  position: "relative",
 }));
 
-const IconWrapperStyle = styled('div')(({ theme }) => ({
-  width: 48,
-  height: 48,
-  display: 'flex',
-  borderRadius: '50%',
-  position: 'absolute',
-  alignItems: 'center',
+const IconWrapperStyle = styled("div")(({ theme }) => ({
+  width: 32,
+  height: 32,
+  display: "flex",
+  borderRadius: "50%",
+  position: "absolute",
+  alignItems: "center",
   top: theme.spacing(3),
   right: theme.spacing(3),
-  justifyContent: 'center',
+  justifyContent: "center",
 }));
 
 // ----------------------------------------------------------------------
 
 BankingWidgetSummary.propTypes = {
   chartData: PropTypes.arrayOf(PropTypes.number).isRequired,
-  color: PropTypes.oneOf(['primary', 'secondary', 'info', 'success', 'warning', 'error']),
+  color: PropTypes.oneOf([
+    "primary",
+    "secondary",
+    "info",
+    "success",
+    "warning",
+    "error",
+  ]),
   icon: PropTypes.string.isRequired,
   percent: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   total: PropTypes.number.isRequired,
 };
 
-export default function BankingWidgetSummary({ title, total, icon, percent, color = 'primary', chartData }) {
+export default function BankingWidgetSummary({
+  title,
+  total,
+  icon,
+  percent,
+  color = "primary",
+  chartData,
+}) {
   const theme = useTheme();
 
   const chartOptions = merge(BaseOptionChart(), {
@@ -57,7 +71,7 @@ export default function BankingWidgetSummary({ title, total, icon, percent, colo
       y: {
         formatter: (seriesName) => fCurrency(seriesName),
         title: {
-          formatter: () => '',
+          formatter: () => "",
         },
       },
     },
@@ -81,21 +95,34 @@ export default function BankingWidgetSummary({ title, total, icon, percent, colo
       </IconWrapperStyle>
 
       <Stack spacing={1} sx={{ p: 3 }}>
-        <Typography sx={{ typography: 'subtitle2' }}>{title}</Typography>
-        <Typography sx={{ typography: 'h3' }}>{fCurrency(total)}</Typography>
+        <Typography sx={{ typography: "subtitle2" }}>{title}</Typography>
+        <Typography sx={{ typography: "h3" }}>
+          {fCurrency(total)} VND
+        </Typography>
         <Stack direction="row" alignItems="center" flexWrap="wrap">
-          <Iconify width={20} height={20} icon={percent >= 0 ? 'eva:trending-up-fill' : 'eva:trending-down-fill'} />
+          <Iconify
+            width={20}
+            height={20}
+            icon={
+              percent >= 0 ? "eva:trending-up-fill" : "eva:trending-down-fill"
+            }
+          />
           <Typography variant="subtitle2" component="span" sx={{ ml: 0.5 }}>
-            {percent > 0 && '+'}
+            {percent > 0 && "+"}
             {fPercent(percent)}
           </Typography>
           <Typography variant="body2" component="span" sx={{ opacity: 0.72 }}>
-            &nbsp;than last month
+            &nbsp;so với tháng trước
           </Typography>
         </Stack>
       </Stack>
 
-      <ReactApexChart type="area" series={[{ data: chartData }]} options={chartOptions} height={120} />
+      <ReactApexChart
+        type="area"
+        series={[{ data: chartData }]}
+        options={chartOptions}
+        height={120}
+      />
     </RootStyle>
   );
 }

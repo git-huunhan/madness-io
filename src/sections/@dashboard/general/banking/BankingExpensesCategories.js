@@ -1,27 +1,34 @@
-import merge from 'lodash/merge';
-import ReactApexChart from 'react-apexcharts';
+import merge from "lodash/merge";
+import ReactApexChart from "react-apexcharts";
 // @mui
-import { useTheme, styled } from '@mui/material/styles';
-import { Box, Card, Stack, Divider, CardHeader, Typography } from '@mui/material';
+import { useTheme, styled } from "@mui/material/styles";
+import {
+  Box,
+  Card,
+  Stack,
+  Divider,
+  CardHeader,
+  Typography,
+} from "@mui/material";
 // hooks
-import useResponsive from '../../../../hooks/useResponsive';
+import useResponsive from "../../../../hooks/useResponsive";
 //
-import { BaseOptionChart } from '../../../../components/chart';
+import { BaseOptionChart } from "../../../../components/chart";
 
 // ----------------------------------------------------------------------
 
 const RootStyle = styled(Card)(({ theme }) => ({
-  '& .apexcharts-legend': {
+  "& .apexcharts-legend": {
     width: 240,
-    margin: 'auto',
-    [theme.breakpoints.up('sm')]: {
-      flexWrap: 'wrap',
+    margin: "auto",
+    [theme.breakpoints.up("sm")]: {
+      flexWrap: "wrap",
       height: 160,
-      width: '50%',
+      width: "50%",
     },
   },
-  '& .apexcharts-datalabels-group': {
-    display: 'none',
+  "& .apexcharts-datalabels-group": {
+    display: "none",
   },
 }));
 
@@ -29,15 +36,15 @@ const RootStyle = styled(Card)(({ theme }) => ({
 
 const CHART_DATA = {
   labels: [
-    'Category 1',
-    'Category 2',
-    'Category 3',
-    'Category 4',
-    'Category 5',
-    'Category 6',
-    'Category 7',
-    'Category 8',
-    'Category 9',
+    "Ăn uống",
+    "Thuê nhà",
+    "Di chuyển",
+    "Internet",
+    "Dịch vụ trực tuyến",
+    "Trả nợ",
+    "Đồ cá nhân",
+    "Đồ gia dụng",
+    "Chi phí khác",
   ],
   data: [14, 23, 21, 17, 15, 10, 12, 17, 21],
 };
@@ -45,7 +52,7 @@ const CHART_DATA = {
 export default function BankingExpensesCategories() {
   const theme = useTheme();
 
-  const isDesktop = useResponsive('up', 'sm');
+  const isDesktop = useResponsive("up", "sm");
 
   const chartOptions = merge(BaseOptionChart(), {
     labels: CHART_DATA.labels,
@@ -65,7 +72,7 @@ export default function BankingExpensesCategories() {
     },
     fill: { opacity: 0.8 },
     legend: {
-      position: 'right',
+      position: "right",
       itemMargin: {
         horizontal: 10,
         vertical: 5,
@@ -76,8 +83,8 @@ export default function BankingExpensesCategories() {
         breakpoint: theme.breakpoints.values.sm,
         options: {
           legend: {
-            position: 'bottom',
-            horizontalAlign: 'left',
+            position: "bottom",
+            horizontalAlign: "left",
           },
         },
       },
@@ -86,7 +93,7 @@ export default function BankingExpensesCategories() {
 
   return (
     <RootStyle>
-      <CardHeader title="Expenses Categories" />
+      <CardHeader title="Danh Mục Chi Tiêu" />
 
       <Box sx={{ my: 5 }} dir="ltr">
         <ReactApexChart
@@ -99,15 +106,26 @@ export default function BankingExpensesCategories() {
 
       <Divider />
 
-      <Stack direction="row" divider={<Divider orientation="vertical" flexItem />}>
-        <Box sx={{ py: 2, width: 1, textAlign: 'center' }}>
-          <Typography sx={{ mb: 1, typography: 'body2', color: 'text.secondary' }}>Categories</Typography>
-          <Typography sx={{ typography: 'h4' }}>9</Typography>
+      <Stack
+        direction="row"
+        divider={<Divider orientation="vertical" flexItem />}
+      >
+        <Box sx={{ py: 2, width: 1, textAlign: "center" }}>
+          <Typography
+            sx={{ mb: 1, typography: "body2", color: "text.secondary" }}
+          >
+            Danh Mục
+          </Typography>
+          <Typography sx={{ typography: "h4" }}>9</Typography>
         </Box>
 
-        <Box sx={{ py: 2, width: 1, textAlign: 'center' }}>
-          <Typography sx={{ mb: 1, typography: 'body2', color: 'text.secondary' }}>Categories</Typography>
-          <Typography sx={{ typography: 'h4' }}>$18,765</Typography>
+        <Box sx={{ py: 2, width: 1, textAlign: "center" }}>
+          <Typography
+            sx={{ mb: 1, typography: "body2", color: "text.secondary" }}
+          >
+            Tổng Chi Phí
+          </Typography>
+          <Typography sx={{ typography: "h4" }}>18,765 VND</Typography>
         </Box>
       </Stack>
     </RootStyle>

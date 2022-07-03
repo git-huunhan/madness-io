@@ -54,7 +54,7 @@ export default function BookingDetails() {
       <Card>
         <CardHeader title="Users" sx={{ mb: 3 }} />
         <Scrollbar>
-          <TableContainer sx={{ minWidth: 720 }}>
+          <TableContainer sx={{ minWidth: 720, overflow: "unset" }}>
             <Table>
               <TableHead>
                 <TableRow>
@@ -67,6 +67,11 @@ export default function BookingDetails() {
                   <TableCell sx={{ minWidth: 200 }}>Phone</TableCell>
                   <TableCell sx={{ minWidth: 120 }}>Date of Birth</TableCell>
                   <TableCell sx={{ minWidth: 120 }}>Address</TableCell>
+                  <TableCell sx={{ minWidth: 200 }}>Phone</TableCell>
+                  <TableCell sx={{ minWidth: 120 }}>Date of Birth</TableCell>
+                  <TableCell sx={{ minWidth: 120 }}>Address</TableCell>
+                  <TableCell sx={{ minWidth: 200 }}>Phone</TableCell>
+                  <TableCell sx={{ minWidth: 120 }}>Date of Birth</TableCell>
                   <TableCell />
                 </TableRow>
               </TableHead>
@@ -138,34 +143,34 @@ export default function BookingDetails() {
                         </Typography>
                       </Stack>
                     </TableCell>
-                    {/* <TableCell>
-                      {format(new Date(row.checkIn), "dd MMM yyyy")}
+                    <TableCell>
+                      {format(new Date(row.dateOfBirth), "dd MMM yyyy")}
                     </TableCell>
                     <TableCell>
-                      {format(new Date(row.checkOut), "dd MMM yyyy")}
+                      {format(new Date(row.dateOfBirth), "dd MMM yyyy")}
                     </TableCell>
 
                     <TableCell>
                       <Label
                         variant={isLight ? "ghost" : "filled"}
                         color={
-                          (row.status === "paid" && "success") ||
-                          (row.status === "pending" && "warning") ||
+                          (row.name === "paid" && "success") ||
+                          (row.name === "pending" && "warning") ||
                           "error"
                         }
                       >
-                        {sentenceCase(row.status)}
+                        {row.address}
                       </Label>
                     </TableCell>
 
-                    <TableCell>{row.phoneNumber}</TableCell>
+                    <TableCell>{row.phone}</TableCell>
                     <TableCell sx={{ textTransform: "capitalize" }}>
-                      {row.roomType}
+                      {row.name}
                     </TableCell>
 
                     <TableCell align="right">
                       <MoreMenuButton />
-                    </TableCell> */}
+                    </TableCell>
 
                     <TableCell align="right">
                       <MoreMenuButton />

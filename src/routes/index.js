@@ -81,8 +81,8 @@ export default function Router() {
       ),
       children: [
         { element: <Navigate to={PATH_AFTER_LOGIN} replace />, index: true },
+        { path: "wallet", element: <Wallet /> },
         { path: "app", element: <GeneralApp /> },
-        { path: "users", element: <Users /> },
         { path: "ecommerce", element: <GeneralEcommerce /> },
         { path: "analytics", element: <GeneralAnalytics /> },
         { path: "banking", element: <GeneralBanking /> },
@@ -165,8 +165,8 @@ export default function Router() {
       ),
       children: [
         { element: <Navigate to={PATH_AFTER_LOGIN} replace />, index: true },
+        { path: "wallet", element: <Wallet /> },
         { path: "app", element: <GeneralApp /> },
-        { path: "users", element: <Users /> },
         { path: "ecommerce", element: <GeneralEcommerce /> },
         { path: "analytics", element: <GeneralAnalytics /> },
         { path: "banking", element: <GeneralBanking /> },
@@ -256,7 +256,7 @@ const VerifyCode = Loadable(lazy(() => import("../pages/auth/VerifyCode")));
 const GeneralApp = Loadable(
   lazy(() => import("../pages/dashboard/GeneralApp"))
 );
-const Users = Loadable(lazy(() => import("../pages/dashboard/Users")));
+const Wallet = Loadable(lazy(() => import("../pages/dashboard/Wallet")));
 const GeneralEcommerce = Loadable(
   lazy(() => import("../pages/dashboard/GeneralEcommerce"))
 );

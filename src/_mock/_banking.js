@@ -18,20 +18,12 @@ export const _bankingQuickTransfer = [...Array(12)].map((_, index) => ({
 
 export const _bankingCreditCard = [
   {
-    id: _mock.id(2),
-    balance: 23432.03,
-    cardType: 'mastercard',
-    cardHolder: _mock.name.fullName(2),
-    cardNumber: '**** **** **** 3640',
-    cardValid: '11/22',
-  },
-  {
     id: _mock.id(3),
     balance: 18000.23,
     cardType: 'visa',
-    cardHolder: _mock.name.fullName(3),
+    cardHolder: "Dang Tran Huu Nhan",
     cardNumber: '**** **** **** 8864',
-    cardValid: '11/25',
+    cardValid: '02/27',
   },
   {
     id: _mock.id(4),
