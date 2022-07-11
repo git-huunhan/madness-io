@@ -32,7 +32,7 @@ import Scrollbar from "../../../../components/Scrollbar";
 import MenuPopover from "../../../../components/MenuPopover";
 // ----------------------------------------------------------------------
 
-import { queryAll } from "../../../../functions/student";
+import { queryAll } from "../../../../functions/user";
 
 export default function BookingDetails() {
   const theme = useTheme();

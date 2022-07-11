@@ -1,12 +1,13 @@
-import PropTypes from 'prop-types';
-import { useState } from 'react';
-import { format } from 'date-fns';
-import { sentenceCase } from 'change-case';
+import PropTypes from "prop-types";
+import { useEffect, useState } from "react";
+import { format } from "date-fns";
+import { sentenceCase } from "change-case";
 // @mui
-import { useTheme } from '@mui/material/styles';
+import { useTheme } from "@mui/material/styles";
 import {
   Box,
   Card,
+  Stack,
   Table,
   Avatar,
   Button,
@@ -20,105 +21,147 @@ import {
   Typography,
   IconButton,
   TableContainer,
-} from '@mui/material';
+} from "@mui/material";
+import moment from "moment";
 // utils
-import { fCurrency } from '../../../../utils/formatNumber';
+import { fCurrency } from "../../../../utils/formatNumber";
 // _mock
-import { _bankingRecentTransitions } from '../../../../_mock';
+import { _bankingRecentTransitions } from "../../../../_mock";
 // components
-import Label from '../../../../components/Label';
-import Iconify from '../../../../components/Iconify';
-import Scrollbar from '../../../../components/Scrollbar';
-import MenuPopover from '../../../../components/MenuPopover';
+import Label from "../../../../components/Label";
+import Iconify from "../../../../components/Iconify";
+import Scrollbar from "../../../../components/Scrollbar";
+import MenuPopover from "../../../../components/MenuPopover";
 
+import { queryAll } from "../../../../functions/user";
 // ----------------------------------------------------------------------
 
 export default function BankingRecentTransitions() {
   const theme = useTheme();
+  const [users, setUsers] = useState([]);
 
-  const isLight = theme.palette.mode === 'light';
+  const isLight = theme.palette.mode === "light";
+
+  useEffect(() => {
+    loadUsers();
+  }, []);
+
+  const loadUsers = () => queryAll().then((user) => setUsers(user.data));
 
   return (
     <>
       <Card>
-        <CardHeader title="Giao Dịch Gần Đây" sx={{ mb: 3 }} />
+        <CardHeader title="Users" sx={{ mb: 3 }} />
         <Scrollbar>
-          <TableContainer sx={{ minWidth: 720 }}>
+          <TableContainer sx={{ minWidth: 720, overflow: "unset" }}>
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>Description</TableCell>
-                  <TableCell>Date</TableCell>
-                  <TableCell>Amount</TableCell>
-                  <TableCell>Status</TableCell>
+                  <TableCell sx={{ minWidth: 50 }}>ID</TableCell>
+                  <TableCell sx={{ minWidth: 160 }}>Last Name</TableCell>
+                  <TableCell sx={{ minWidth: 160 }}>First Name</TableCell>
+                  <TableCell sx={{ minWidth: 120 }}>Gender</TableCell>
+                  <TableCell sx={{ minWidth: 120 }}>Email</TableCell>
+                  <TableCell sx={{ minWidth: 200 }}>Phone</TableCell>
+                  <TableCell sx={{ minWidth: 120 }}>Date of Birth</TableCell>
+                  <TableCell sx={{ minWidth: 120 }}>Address</TableCell>
+                  <TableCell sx={{ minWidth: 200 }}>Phone</TableCell>
+                  <TableCell sx={{ minWidth: 120 }}>Date of Birth</TableCell>
+                  <TableCell sx={{ minWidth: 120 }}>Address</TableCell>
+                  <TableCell sx={{ minWidth: 200 }}>Phone</TableCell>
+                  <TableCell sx={{ minWidth: 120 }}>Date of Birth</TableCell>
                   <TableCell />
                 </TableRow>
               </TableHead>
-              <TableBody>
-                {_bankingRecentTransitions.map((row) => (
-                  <TableRow key={row.id}>
+              <TableBody className="test">
+                {users.map((row) => (
+                  <TableRow key={row._id}>
                     <TableCell>
-                      <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                        <Box sx={{ position: 'relative' }}>
-                          {renderAvatar(row.category, row.avatar)}
-                          <Box
-                            sx={{
-                              right: 0,
-                              bottom: 0,
-                              width: 18,
-                              height: 18,
-                              display: 'flex',
-                              borderRadius: '50%',
-                              position: 'absolute',
-                              alignItems: 'center',
-                              color: 'common.white',
-                              bgcolor: 'error.main',
-                              justifyContent: 'center',
-                              ...(row.type === 'Income' && {
-                                bgcolor: 'success.main',
-                              }),
-                            }}
-                          >
-                            <Iconify
-                              icon={
-                                row.type === 'Income'
-                                  ? 'eva:diagonal-arrow-left-down-fill'
-                                  : 'eva:diagonal-arrow-right-up-fill'
-                              }
-                              width={16}
-                              height={16}
-                            />
-                          </Box>
-                        </Box>
-                        <Box sx={{ ml: 2 }}>
-                          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                            {row.message}
-                          </Typography>
-                          <Typography variant="subtitle2"> {row.category}</Typography>
-                        </Box>
-                      </Box>
+                      <Stack direction="row" alignItems="center" spacing={2}>
+                        <Typography variant="subtitle2">
+                          {row.studentCode}
+                        </Typography>
+                      </Stack>
                     </TableCell>
 
                     <TableCell>
-                      <Typography variant="subtitle2">{format(new Date(row.date), 'dd MMM yyyy')}</Typography>
-                      <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                        {format(new Date(row.date), 'p')}
-                      </Typography>
+                      <Stack direction="row" alignItems="center" spacing={2}>
+                        <Typography variant="subtitle2">
+                          {row.lastName}
+                        </Typography>
+                      </Stack>
                     </TableCell>
 
-                    <TableCell>{fCurrency(row.amount)}</TableCell>
+                    <TableCell>
+                      <Stack direction="row" alignItems="center" spacing={2}>
+                        <Typography variant="subtitle2">
+                          {row.firstName}
+                        </Typography>
+                      </Stack>
+                    </TableCell>
+
+                    <TableCell>
+                      <Stack direction="row" alignItems="center" spacing={2}>
+                        <Typography variant="subtitle2">
+                          {row.gender}
+                        </Typography>
+                      </Stack>
+                    </TableCell>
+
+                    <TableCell>
+                      <Stack direction="row" alignItems="center" spacing={2}>
+                        <Typography variant="subtitle2">{row.email}</Typography>
+                      </Stack>
+                    </TableCell>
+
+                    <TableCell>
+                      <Stack direction="row" alignItems="center" spacing={2}>
+                        <Typography variant="subtitle2">{row.phone}</Typography>
+                      </Stack>
+                    </TableCell>
+
+                    <TableCell>
+                      <Stack direction="row" alignItems="center" spacing={2}>
+                        <Typography variant="subtitle2">
+                          {moment(row.dateOfBirth).format("DD/MM/YYYY")}
+                        </Typography>
+                      </Stack>
+                    </TableCell>
+
+                    <TableCell>
+                      <Stack direction="row" alignItems="center" spacing={2}>
+                        <Typography variant="subtitle2">
+                          {row.address}
+                        </Typography>
+                      </Stack>
+                    </TableCell>
+                    <TableCell>
+                      {format(new Date(row.dateOfBirth), "dd MMM yyyy")}
+                    </TableCell>
+                    <TableCell>
+                      {format(new Date(row.dateOfBirth), "dd MMM yyyy")}
+                    </TableCell>
 
                     <TableCell>
                       <Label
-                        variant={isLight ? 'ghost' : 'filled'}
+                        variant={isLight ? "ghost" : "filled"}
                         color={
-                          (row.status === 'completed' && 'success') ||
-                          (row.status === 'in_progress' && 'warning') ||
-                          'error'
+                          (row.name === "paid" && "success") ||
+                          (row.name === "pending" && "warning") ||
+                          "error"
                         }
                       >
-                        {sentenceCase(row.status)}
+                        {row.address}
                       </Label>
+                    </TableCell>
+
+                    <TableCell>{row.phone}</TableCell>
+                    <TableCell sx={{ textTransform: "capitalize" }}>
+                      {row.name}
+                    </TableCell>
+
+                    <TableCell align="right">
+                      <MoreMenuButton />
                     </TableCell>
 
                     <TableCell align="right">
@@ -133,8 +176,12 @@ export default function BankingRecentTransitions() {
 
         <Divider />
 
-        <Box sx={{ p: 2, textAlign: 'right' }}>
-          <Button size="small" color="inherit" endIcon={<Iconify icon={'eva:arrow-ios-forward-fill'} />}>
+        <Box sx={{ p: 2, textAlign: "right" }}>
+          <Button
+            size="small"
+            color="inherit"
+            endIcon={<Iconify icon={"eva:arrow-ios-forward-fill"} />}
+          >
             View All
           </Button>
         </Box>
@@ -155,8 +202,8 @@ function AvatarIcon({ icon }) {
       sx={{
         width: 48,
         height: 48,
-        color: 'text.secondary',
-        bgcolor: 'background.neutral',
+        color: "text.secondary",
+        bgcolor: "background.neutral",
       }}
     >
       <Iconify icon={icon} width={24} height={24} />
@@ -167,14 +214,22 @@ function AvatarIcon({ icon }) {
 // ----------------------------------------------------------------------
 
 function renderAvatar(category, avatar) {
-  if (category === 'Books') {
-    return <AvatarIcon icon={'eva:book-fill'} />;
+  if (category === "Books") {
+    return <AvatarIcon icon={"eva:book-fill"} />;
   }
-  if (category === 'Beauty & Health') {
-    return <AvatarIcon icon={'eva:heart-fill'} />;
+  if (category === "Beauty & Health") {
+    return <AvatarIcon icon={"eva:heart-fill"} />;
   }
   return avatar ? (
-    <Avatar alt={category} src={avatar} sx={{ width: 48, height: 48, boxShadow: (theme) => theme.customShadows.z8 }} />
+    <Avatar
+      alt={category}
+      src={avatar}
+      sx={{
+        width: 48,
+        height: 48,
+        boxShadow: (theme) => theme.customShadows.z8,
+      }}
+    />
   ) : null;
 }
 
@@ -200,41 +255,45 @@ function MoreMenuButton() {
   return (
     <>
       <IconButton size="large" onClick={handleOpen}>
-        <Iconify icon={'eva:more-vertical-fill'} width={20} height={20} />
+        <Iconify icon={"eva:more-vertical-fill"} width={20} height={20} />
       </IconButton>
 
       <MenuPopover
         open={Boolean(open)}
         anchorEl={open}
         onClose={handleClose}
-        anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
-        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+        anchorOrigin={{ vertical: "top", horizontal: "left" }}
+        transformOrigin={{ vertical: "top", horizontal: "right" }}
         arrow="right-top"
         sx={{
           mt: -0.5,
           width: 160,
-          '& .MuiMenuItem-root': { px: 1, typography: 'body2', borderRadius: 0.75 },
+          "& .MuiMenuItem-root": {
+            px: 1,
+            typography: "body2",
+            borderRadius: 0.75,
+          },
         }}
       >
         <MenuItem>
-          <Iconify icon={'eva:download-fill'} sx={{ ...ICON }} />
+          <Iconify icon={"eva:download-fill"} sx={{ ...ICON }} />
           Download
         </MenuItem>
 
         <MenuItem>
-          <Iconify icon={'eva:printer-fill'} sx={{ ...ICON }} />
+          <Iconify icon={"eva:printer-fill"} sx={{ ...ICON }} />
           Print
         </MenuItem>
 
         <MenuItem>
-          <Iconify icon={'eva:share-fill'} sx={{ ...ICON }} />
+          <Iconify icon={"eva:share-fill"} sx={{ ...ICON }} />
           Share
         </MenuItem>
 
-        <Divider sx={{ borderStyle: 'dashed' }} />
+        <Divider sx={{ borderStyle: "dashed" }} />
 
-        <MenuItem sx={{ color: 'error.main' }}>
-          <Iconify icon={'eva:trash-2-outline'} sx={{ ...ICON }} />
+        <MenuItem sx={{ color: "error.main" }}>
+          <Iconify icon={"eva:trash-2-outline"} sx={{ ...ICON }} />
           Delete
         </MenuItem>
       </MenuPopover>

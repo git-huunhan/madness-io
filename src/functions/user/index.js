@@ -1,4 +1,4 @@
-import axios from "../utils/axios";
+import axios from "../../utils/axios";
 
 export const createStudent = async (student) =>
   await axios.post(`${process.env.REACT_APP_API}/create`, { student });

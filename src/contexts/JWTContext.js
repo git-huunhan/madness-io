@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 // utils
 import axios from "../utils/axios";
 import { isValidToken, setSession } from "../utils/jwt";
-import { getAdminLogin, getAdminData } from "../functions/auth";
+import { getUserLogin, getUserData } from "../functions/auth";
 
 // ----------------------------------------------------------------------
 
@@ -76,7 +76,7 @@ function AuthProvider({ children }) {
         if (accessToken && isValidToken(accessToken)) {
           setSession(accessToken);
 
-          const response = await getAdminData();
+          const response = await getUserData();
 
           const user = response.data[0];
 
@@ -112,7 +112,7 @@ function AuthProvider({ children }) {
   }, []);
 
   const login = async (email, password) => {
-    const response = await getAdminLogin(email, password);
+    const response = await getUserLogin(email, password);
 
     const { accessToken, user } = response.data[0];
 
