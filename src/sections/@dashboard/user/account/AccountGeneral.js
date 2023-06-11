@@ -22,13 +22,13 @@ import {
   RHFUploadAvatar,
 } from "../../../../components/hook-form";
 
-import { updateUser, getUserData } from "../../../../functions/auth";
+import { getUserData } from "../../../../functions/auth";
 // ----------------------------------------------------------------------
 
 export default function AccountGeneral() {
   const { enqueueSnackbar } = useSnackbar();
 
-  const { user } = useAuth();
+  const { user, update } = useAuth();
 
   const UpdateUserSchema = Yup.object().shape({
     displayName: Yup.string().required("Name is required"),
@@ -73,10 +73,9 @@ export default function AccountGeneral() {
     try {
       const getData = getFormData();
 
-      await updateUser(getData).then(async () => {
+      await update(getData).then(async () => {
         await new Promise((resolve) => setTimeout(resolve, 500));
         enqueueSnackbar("Update success!");
-        await loadUsers();
       });
     } catch (error) {
       console.error(error);

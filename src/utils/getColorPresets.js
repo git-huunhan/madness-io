@@ -14,7 +14,7 @@ export const colorPresets = [
     name: "purple",
     lighter: "#EBD6FD",
     light: "#B985F4",
-    main: "#7635dc",
+    main: "#ba90ff",
     dark: "#431A9E",
     darker: "#200A69",
     contrastText: "#fff",

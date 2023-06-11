@@ -37,6 +37,11 @@ const navConfig = [
         path: PATH_DASHBOARD.general.wallet,
         icon: ICONS.wallet,
       },
+      {
+        title: "tools",
+        path: PATH_DASHBOARD.general.tools,
+        icon: ICONS.analytics,
+      },
       // { title: "app", path: PATH_DASHBOARD.general.app, icon: ICONS.dashboard },
       // {
       //   title: "e-commerce",

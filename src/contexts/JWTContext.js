@@ -3,8 +3,7 @@ import PropTypes from "prop-types";
 // utils
 import axios from "../utils/axios";
 import { isValidToken, setSession } from "../utils/jwt";
-import { getUserLogin, getUserData } from "../functions/auth";
-
+import { getUserLogin, getUserData, updateUser } from "../functions/auth";
 // ----------------------------------------------------------------------
 
 const initialState = {
@@ -46,6 +45,15 @@ const handlers = {
       user,
     };
   },
+  UPDATEUSER: (state, action) => {
+    const { user } = action.payload;
+
+    return {
+      ...state,
+      isAuthenticated: true,
+      user,
+    };
+  },
 };
 
 const reducer = (state, action) =>
@@ -57,6 +65,7 @@ const AuthContext = createContext({
   login: () => Promise.resolve(),
   logout: () => Promise.resolve(),
   register: () => Promise.resolve(),
+  updateUser: () => Promise.resolve(),
 });
 
 // ----------------------------------------------------------------------
@@ -148,6 +157,21 @@ function AuthProvider({ children }) {
     dispatch({ type: "LOGOUT" });
   };
 
+  const update = async (data) => {
+    const response = await updateUser(data);
+
+    const { accessToken, user } = response.data[0];
+
+    setSession(accessToken);
+
+    dispatch({
+      type: "UPDATEUSER",
+      payload: {
+        user,
+      },
+    });
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -156,6 +180,7 @@ function AuthProvider({ children }) {
         login,
         logout,
         register,
+        update,
       }}
     >
       {children}

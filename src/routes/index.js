@@ -82,6 +82,7 @@ export default function Router() {
       children: [
         { element: <Navigate to={PATH_AFTER_LOGIN} replace />, index: true },
         { path: "wallet", element: <Wallet /> },
+        { path: "tools", element: <Tools /> },
         { path: "app", element: <GeneralApp /> },
         { path: "ecommerce", element: <GeneralEcommerce /> },
         { path: "analytics", element: <GeneralAnalytics /> },
@@ -257,6 +258,7 @@ const GeneralApp = Loadable(
   lazy(() => import("../pages/dashboard/GeneralApp"))
 );
 const Wallet = Loadable(lazy(() => import("../pages/dashboard/Wallet")));
+const Tools = Loadable(lazy(() => import("../pages/dashboard/Tools")));
 const GeneralEcommerce = Loadable(
   lazy(() => import("../pages/dashboard/GeneralEcommerce"))
 );
