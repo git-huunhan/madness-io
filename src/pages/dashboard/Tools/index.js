@@ -38,12 +38,13 @@ export default function Wallet() {
 
   const [data, setData] = useState({
     usNumber: "",
-    taskNumberBF: "",
+    taskNumberBF: "<task-number>",
     taskNumberTR: "",
-    taskNameBF: "",
+    taskNameBF: "<task-name>",
     taskNameTR: "",
     gitAction: 0,
     type: 0,
+    author: "<author>",
   });
   const [taskReportList, setTaskReportList] = useState("");
   const [label, setLabel] = useState("");
@@ -113,12 +114,12 @@ export default function Wallet() {
     setTaskReportList([]);
   };
 
-  const featureText = `${
-    strGitAction ? `git ${strGitAction} ` : ""
-  }feature/stephend/${label}`;
-  const bugfixText = `${
-    strGitAction ? `git ${strGitAction} ` : ""
-  }bugfix/stephend/${label}`;
+  const featureText = `${strGitAction ? `git ${strGitAction} ` : ""}feature/${
+    data.author
+  }/${label}`;
+  const bugfixText = `${strGitAction ? `git ${strGitAction} ` : ""}bugfix/${
+    data.author
+  }/${label}`;
 
   return (
     <Page title="General: Tools">
@@ -134,6 +135,14 @@ export default function Wallet() {
                 <TextField
                   label="Task Number"
                   name="taskNumberBF"
+                  fullWidth
+                  onChange={handleOnChange}
+                />
+              </Grid>
+              <Grid item xs={12} md={2}>
+                <TextField
+                  label="Author"
+                  name="author"
                   fullWidth
                   onChange={handleOnChange}
                 />
@@ -162,7 +171,7 @@ export default function Wallet() {
                   </Select>
                 </FormControl>
               </Grid>
-              <Grid item xs={12} md={8}>
+              <Grid item xs={12} md={6}>
                 <TextField
                   label="Task Name"
                   name="taskNameBF"
